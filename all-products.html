@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products | Cedro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="font-sans text-dark-800 bg-pink-50">
+<header class="sticky top-0 z-50 bg-white shadow-md">
+  <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6">
+    <h1 class="text-3xl font-extrabold tracking-wide text-black">
+      <a href="index.html">CEDRO</a>
+    </h1>
+    <nav class="space-x-6 hidden md:block text-lg text-gray-700 font-medium">
+      <a href="all-products.html" class="hover:text-black transition"><u>Products</u></a>
+      <a href="all-products.html" class="hover:text-black transition">Categories</a>
+      <a href="index.html#contact-page" class="hover:text-black transition">Contact</a>
+      <a href="index.html#contact-page" class="hover:text-black transition">FAQ</a>
+    </nav>
+    <div class="flex gap-2">
+      <button class="border border-black text-black px-4 py-1 rounded-full hover:bg-black hover:text-white transition font-semibold">Sign Up</button>
+      <button class="bg-black text-white px-5 py-1 rounded-full hover:bg-gray-800 transition font-semibold">Login</button>
+    </div>
+  </div>
+</header>
+  <main class="max-w-7xl mx-auto px-6 py-12">
+  <!-- <h2 class="text-4xl font-bold text-center mb-10">All Products</h2> -->
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- Filters on the left -->
+    <aside class="w-full md:w-1/4 bg-white p-6 rounded-lg shadow h-fit sticky top-24">
+      <h3 class="text-xl font-semibold mb-4">Filters</h3>
+      <div class="mb-6">
+        <label for="category" class="block font-semibold mb-2">Category</label>
+        <select id="category" class="w-full border rounded p-2">
+          <option value="all">All</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
+          <option value="kids">Kids</option>
+        </select>
+      </div>
+
+      <div class="mb-6">
+        <label for="price-range" class="block font-semibold mb-2">Price Range</label>
+        <select id="price-range" class="w-full border rounded p-2">
+          <option value="all">All</option>
+          <option value="0-1000">Under ₹1000</option>
+          <option value="1000-3000">₹1000 - ₹3000</option>
+          <option value="3000-5000">₹3000 - ₹5000</option>
+          <option value="5000">Above ₹5000</option>
+        </select>
+      </div>
+
+      <button onclick="applyFilters()" class="bg-black text-white px-6 py-2 rounded shadow hover:bg-gray-800 w-full">Apply Filters</button>
+    </aside>
+
+    <!-- Product Grid on the right -->
+    <section class="w-full md:w-3/4">
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Sample Product -->
+        <div class="product bg-white rounded-lg shadow overflow-hidden" data-category="men" data-price="2500">
+  <img src="images/man/hoodie.webp" alt="Product" class="w-full h-64 object-cover">
+  <div class="p-4">
+    <h3 class="text-lg font-semibold">Citizen Hoodie</h3>
+    <p class="text-gray-500 mt-1">₹2500</p>
+  </div>
+</div>
+      <div class="product bg-white rounded-lg shadow overflow-hidden" data-category="men" data-price="8000">
+  <img src="images/man/jacket.webp" alt="Product" class="w-full h-64 object-cover">
+  <div class="p-4">
+    <h3 class="text-lg font-semibold">Jockey Jacket</h3>
+    <p class="text-gray-500 mt-1">₹8000</p>
+  </div>
+</div>
+<div class="product bg-white rounded-lg shadow overflow-hidden" data-category="men" data-price="800">
+  <img src="images/man/hoodie.webp" alt="Product" class="w-full h-64 object-cover">
+  <div class="p-4">
+    <h3 class="text-lg font-semibold">Printed shirt</h3>
+    <p class="text-gray-500 mt-1">₹800</p>
+  </div>
+</div>
+<div class="product bg-white rounded-lg shadow overflow-hidden" data-category="women" data-price="5000">
+  <img src="images/woman/denim.webp" alt="Product" class="w-full h-64 object-cover">
+  <div class="p-4">
+    <h3 class="text-lg font-semibold">Denim</h3>
+    <p class="text-gray-500 mt-1">₹5000</p>
+  </div>
+</div>
+
+      </div>
+    </section>
+  </div>
+</main>
+
+
+  <footer class="bg-gray-900 text-white py-6 mt-12">
+    <div class="max-w-6xl mx-auto text-center">
+      <p>&copy; 2025 CEDRO. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+  function applyFilters() {
+    const selectedCategory = document.getElementById('category').value;
+    const selectedPrice = document.getElementById('price-range').value;
+
+    const products = document.querySelectorAll('.product');
+
+    products.forEach(product => {
+      const category = product.getAttribute('data-category');
+      const price = parseInt(product.getAttribute('data-price'));
+
+      let show = true;
+
+      // Category filter
+      if (selectedCategory !== 'all' && category !== selectedCategory) {
+        show = false;
+      }
+
+      // Price filter
+      if (selectedPrice !== 'all') {
+        if (selectedPrice === '0-1000' && !(price <= 1000)) show = false;
+        else if (selectedPrice === '1000-3000' && !(price >= 1000 && price <= 3000)) show = false;
+        else if (selectedPrice === '3000-5000' && !(price >= 3000 && price <= 5000)) show = false;
+        else if (selectedPrice === '5000' && !(price > 5000)) show = false;
+      }
+
+      product.style.display = show ? 'block' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
+
